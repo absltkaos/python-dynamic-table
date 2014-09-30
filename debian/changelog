@@ -1,0 +1,45 @@
+python-dynamic-table (0.8.2-%DIST%1) %DIST%; urgency=low
+
+  * Bug Fix: Improper handling when no column rule is specified
+
+ -- Dan Farnsworth <absltkaos@gmail.com>  Thu, 18 Sep 2014 17:01:00 -0600
+
+python-dynamic-table (0.8.1-%DIST%2) %DIST%; urgency=low
+
+  * Added an additional option to Table.add_row to add arbitrary rendering
+    options for Render objects to use.
+  * Added features to RenderHTML to make use of the new row_render_opts
+    created from add_row, so attributes can be added to <tr> and <td>/<th>
+  * Added table_attr option to RenderHTML for setting <table> attributes
+
+ -- Dan Farnsworth <absltkaos@gmail.com>  Wed, 27 Aug 2014 17:42:00 -0600
+
+python-dynamic-table (0.8.0-%DIST%2) %DIST%; urgency=low
+
+  * Applied minor bug patch around TableFilter class, not handling number
+    comparisons correctly due to poor operator logic
+
+ -- Dan Farnsworth <absltkaos@gmail.com>  Mon, 18 Aug 2014 16:19:00 -0600
+
+python-dynamic-table (0.8.0-%DIST%1) %DIST%; urgency=low
+
+  * Add in TableFilters
+  * Fixed Miscellaneous Bugs
+  * Refactored the Table class to split the rendering of the table from the
+    data
+  * Added in __len__ and __str__ magic functions
+  * Documented new features, and all Classes and functions.
+
+ -- Dan Farnsworth <absltkaos@gmail.com>  Fri,  1 Aug 2014 16:00:00 -0600
+
+python-dynamic-table (0.3.1-%DIST%1) %DIST%; urgency=low
+
+  * Add ability to store the table in memory 
+
+ -- Dan Farnsworth <absltkaos@gmail.com>  Mon, 23 Sep 2013 15:51:00 -0600
+
+python-dynamic-table (0.3.0-%DIST%1) %DIST%; urgency=low
+
+  * Initial release.
+
+ -- Dan Farnsworth <absltkaos@gmail.com>  Mon, 23 Apr 2013 13:45:00 -0600

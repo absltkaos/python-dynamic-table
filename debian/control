@@ -1,0 +1,13 @@
+Source: python-dynamic-table
+Section: python
+Priority: optional
+Maintainer: Dan Farnsworth <absltkaos@gmail.com>
+Build-Depends-Indep: debhelper (>= 5.0.37.2), cdbs (>= 0.4.43), python-support, python-all-dev (>= 2.3.5-11)
+Standards-Version: 3.7.2
+XS-Python-Version: current, >= 2.4
+
+Package: python-dynamic-table
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}, python-dateutil
+XB-Python-Version: ${python:Versions}
+Description: Library for creating and printing tables in different formats
