@@ -1,3 +1,11 @@
+python-dynamic-table (0.8.3-%DIST%1) %DIST%; urgency=low
+
+  * Bug Fix: Improper TableFilters when a single column is to display
+  * Bug Fix: Force TableFilter row rules that are string comparisons so the
+    cells are converted to str
+
+ -- Dan Farnsworth <absltkaos@gmail.com>  Tue,  4 Nov 2014 10:42:00 -0700
+
 python-dynamic-table (0.8.2-%DIST%1) %DIST%; urgency=low
 
   * Bug Fix: Improper handling when no column rule is specified

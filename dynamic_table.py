@@ -207,7 +207,7 @@ To see more examples of how all this works out see the file: dynamic_table_examp
 
 Written by Dan Farnsworth - Mar 2013
 
-Version: 0.8.2
+Version: 0.8.3
 """
 
 import sys #This is only really needed so we can default out output to sys.stdout
@@ -1214,21 +1214,17 @@ class TableFilter:
     if f_split[0].find(',') > 0:
       self.set_col_rule(f_split[0])
     else:
+      #Make sure there isn't an operator(Which would imply a row rule)
+      for op in self.row_ops:
+        if op in f_split[0]:
+          xtra_col_rule=False
+          break
       #Support column rules that have no commas but only have col ranges
-      if f_split[0].find('-') > 0:
-        #Make sure there isn't an operator(Which would imply a row rule)
-        for op in self.row_ops:
-          if op in f_split[0]:
-            xtra_col_rule=False
-            break
-      else:
-         #No range and no ',' assume column rule
-         xtra_col_rule=False
       if xtra_col_rule:
         #Assume this is a column rule
         self.set_col_rule(f_split[0])
       else:
-        #Assume not no column rule specified, so is a row rule
+        #Assume no column rule specified, so is a row rule
         self.add_row_rule(f_split[0])
     for i in range(1,rule_cnt):
       self.add_row_rule(f_split[i])
@@ -1249,7 +1245,7 @@ class TableFilter:
         elif rule['val_type'] == 'number':
           v=float(row[rule['col']-1])
         else:
-          v=row[rule['col']-1]
+          v=str(row[rule['col']-1])
         if not rule['op'](v):
           return False
       except:
