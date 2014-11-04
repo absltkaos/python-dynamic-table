@@ -129,14 +129,19 @@ Quick examples
   my_table.set_col_names(['Col1','Col2'])
   my_table.add_row(['a','b'])
   my_table.add_row(['c','d'])
+  my_table.render()
 ```
 ```python
   #Render the same table above but in html without borders:
   my_table.set_table_renderer(RenderHTML(borderless=True))
+  my_table.render()
 ```
 ```python
   #Render the same table, but now in csv pipe '|' separated
   my_table.set_table_renderer(RenderCSV(sep_char='|'))
+  my_table.render()
+  #Assign the built table to a variable:
+  built_table=str(my_table)
 ```
 
 =============
