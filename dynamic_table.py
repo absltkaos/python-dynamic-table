@@ -1,7 +1,7 @@
 # vim:set et ts=2 sw=2:
 """
 -- module:: dynamic_table
-   :synopsis: Library for building, and rendering data in tables of different types
+   :synopsis: Library for building, and rendering data in text tables of different types
 
 ============
 Introduction
@@ -207,7 +207,7 @@ To see more examples of how all this works out see the file: dynamic_table_examp
 
 Written by Dan Farnsworth - Mar 2013
 
-Version: 0.8.3
+Version: 0.8.4
 """
 
 import sys #This is only really needed so we can default out output to sys.stdout
@@ -689,7 +689,10 @@ class RenderHTML:
     """
     built=[]
     if len(table.col_names) == 0:
-      return
+      if built:
+        return ''.join(built)
+      else:
+        return ''
     if len(table.col_names) < table.col_count:
       cells_filled=[]
       count=0
