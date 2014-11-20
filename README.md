@@ -165,8 +165,8 @@ Values for above:
                       '-' to the end. Such as: "4-" would be from column 4 to
                       the end.
   [column id]:        Single column id
-  [operator]:         One of: '>','<','>=','<=','!=','=','/' which should be self
-                      explanatory. '/' is a "contains" operator.
+  [operator]:         One of: '>','<','>=','<=','!=','=','!/','/' which should
+                      be self explanatory. '/' is a "contains" operator.
   [comparison value]: Value to compare against the column in [column id]. This
                       can be a string, number, or even a date.
 ```

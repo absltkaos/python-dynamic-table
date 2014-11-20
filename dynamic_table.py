@@ -1,7 +1,7 @@
 # vim:set et ts=2 sw=2:
 """
 -- module:: dynamic_table
-   :synopsis: Library for building, and rendering data in text tables of different types
+   :synopsis: Library for building, and rendering data in tables of different types
 
 ============
 Introduction
@@ -138,8 +138,8 @@ Values for above:
                       '-' to the end. Such as: "4-" would be from column 4 to
                       the end.
   [column id]:        Single column id
-  [operator]:         One of: '>','<','>=','<=','!=','=','/' which should be self
-                      explanatory. '/' is a "contains" operator.
+  [operator]:         One of: '>','<','>=','<=','!=','=','!/','/' which should
+                      be self explanatory. '/' is a "contains" operator.
   [comparison value]: Value to compare against the column in [column id]. This
                       can be a string, number, or even a date.
 
@@ -207,7 +207,7 @@ To see more examples of how all this works out see the file: dynamic_table_examp
 
 Written by Dan Farnsworth - Mar 2013
 
-Version: 0.8.4
+Version: 0.8.3
 """
 
 import sys #This is only really needed so we can default out output to sys.stdout
@@ -1174,6 +1174,8 @@ class CustomOp:
       return True
     else:
       return False
+  def __notcontains__(self,v):
+    return not(self.__contains__(v))
 
 class TableFilter:
   """
@@ -1190,15 +1192,15 @@ class TableFilter:
                         '-' to the end. Such as: "4-" would be from column 4
                         to the end.
     [column id]:        Single column id
-    [operator]:         One of: '>','<','>=','<=','!=','=','/' which should be
-                        self explanatory. '/' is a "contains" operator.
+    [operator]:         One of: '>','<','>=','<=','!=','=','!/','/' which
+                        should be self explanatory. '/' is a "contains" operator.
     [comparison value]: Value to compare against the column in [column id].
                         This can be a string, number, or even a date.
   Args:
     filter_txt:         String following Filter Expression Syntax above
   
   """
-  row_ops=[ '>=','<=','>','<','!=','=','/' ]
+  row_ops=[ '>=','<=','>','<','!=','=','!/','/' ]
   def __init__(self,filter_txt=None):
     self.row_rules=[]
     self.col_rule=[]
@@ -1372,8 +1374,8 @@ class TableFilter:
       [column id][operator][comparison value]
       
       [column id]:        Single column id
-      [operator]:         One of: '>','<','>=','<=','!=','=','/' which should
-                          be self explanatory. '/' is a "contains" operator.
+      [operator]:         One of: '>','<','>=','<=','!=','=','!/','/' which
+                          should be self explanatory. '/' is a "contains" operator.
       [comparison value]: Value to compare against the column in [column id].
                           This can be a string, number, or even a date.
     
@@ -1413,7 +1415,7 @@ class TableFilter:
             new_rule['val_type']='string'
             pass
         if new_rule['val_type'] == 'string':
-          if op not in [ '=','!=','/' ]:
+          if op not in [ '=','!=','!/','/' ]:
             raise ValueError("row rule operator: " + op + " is invalid for comparing string values for row rule:"+row_rule)
         #Find the proper comparison function for the value type
         #Yes, the functions are reversed for gt and lt comparisons, this is intentional
@@ -1431,6 +1433,8 @@ class TableFilter:
           new_rule['op']=new_rule['val'].__eq__
         elif op == '/':
           new_rule['op']=CustomOp(new_rule['val']).__contains__
+        elif op == '!/':
+          new_rule['op']=CustomOp(new_rule['val']).__notcontains__
         else:
           raise RuntimeError("You shouldn't have gotten here, op list doesnt match row_ops")
         self.row_rules.append(new_rule)
