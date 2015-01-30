@@ -961,7 +961,10 @@ class Table:
     count=0
     col_widths_real_count=len(self.col_widths_real)
     for c in row:
-      c_len=len(c)
+      try:
+        c_len=len(c)
+      except TypeError:
+        c_len=len(str(c))
       if count < col_widths_real_count:
         if c_len > self.col_widths_real[count]:
           self.col_widths_real[count]=c_len
