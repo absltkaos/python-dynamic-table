@@ -111,9 +111,6 @@ RenderHTML
            html_cell_attr: List of HTML cell attribute/s to add to 'td'/'th'
                            tags
 ```                           
-  * borderless=False
-  * border=1
-  * padding=1
   * color_disabled=False
   * table_attr=''
   * thead_attr=''
@@ -132,8 +129,8 @@ Quick examples
   my_table.render()
 ```
 ```python
-  #Render the same table above but in html without borders:
-  my_table.set_table_renderer(RenderHTML(borderless=True))
+  #Render the same table above but in html with with a css class of "table":
+  my_table.set_table_renderer(RenderHTML(table_attr='class="table"'))
   my_table.render()
 ```
 ```python

@@ -1,3 +1,10 @@
+python-dynamic-table (0.8.7-%DIST%1) %DIST%; urgency=low
+
+  * Remove useless border,padding and bordless attributes from RenderHTML in
+    favor of just using table_attr
+
+ -- Dan Farnsworth <absltkaos@gmail.com>  Wed, 18 Feb 2015 00:47:00 -0700
+
 python-dynamic-table (0.8.6-%DIST%1) %DIST%; urgency=low
 
   * Fixed minor bug where a non-string in a row can break rendering

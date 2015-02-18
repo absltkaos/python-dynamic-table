@@ -98,9 +98,6 @@ Supported parameters for print_table() for each renderer and defaults are below:
            html_row_attr:  String HTMl row attribute/s to add to the 'tr' tag
            html_cell_attr: List of HTML cell attribute/s to add to 'td'/'th'
                            tags
-  * borderless=False
-  * border=1
-  * padding=1
   * color_disabled=False
   * table_attr=''
   * thead_attr=''
@@ -114,8 +111,8 @@ Quick examples:
   my_table.add_row(['a','b'])
   my_table.add_row(['c','d'])
   
-  #Render the same table above but in html without borders:
-  my_table.set_table_renderer(RenderHTML(borderless=True))
+  #Render the same table above but in html with a css class of "table"
+  my_table.set_table_renderer(RenderHTML(table_attr='class=table"))
   
   #Render the same table, but now in csv pipe '|' separated
   my_table.set_table_renderer(RenderCSV(sep_char='|'))
@@ -607,9 +604,6 @@ class RenderHTML:
                            tags
   
   Args:
-    borderless:         Whether table should be borderless (Default=False)
-    border:             Border thickness. (Default=1)
-    padding:            Padding value. (Default=1)
     color_disabled:     Disable color displays (Default=False)
     table_attr:         Optional attribute to add into <table> tag
     thead_attr:         Optional attribute to add into <thead> tag
@@ -620,10 +614,7 @@ class RenderHTML:
   def_border=1
   def_padding=1
   def_color_disabled=False
-  def __init__(self,borderless=def_borderless,border=def_border,padding=def_padding,color_disabled=def_color_disabled,table_attr='',thead_attr='',tbody_attr=''):
-    self.borderless=borderless
-    self.border=border
-    self.padding=padding
+  def __init__(self,color_disabled=def_color_disabled,table_attr='',thead_attr='',tbody_attr=''):
     self.color_disabled=color_disabled
     self.body_tag_rendered=False
     self.table_attr=table_attr
@@ -673,9 +664,6 @@ class RenderHTML:
       RenderHTML
     """
     new_renderer=RenderHTML()
-    new_renderer.borderless=Bool(self.boderless)
-    new_renderer.border=int(self.border)
-    new_renderer.padding=int(self.padding)
     return new_renderer
   def print_header(self,table):
     """
@@ -819,11 +807,7 @@ class RenderHTML:
       String
     """
     built=[]
-    if self.borderless:
-      border_thickness=0
-    else:
-      border_thickness=self.border
-    built.append("<table border=\"%s\" cellpadding=\"%s\" %s>\n" % (str(border_thickness),str(self.padding),self.table_attr) )
+    built.append("<table %s>\n" % (self.table_attr) )
     built.append(self.print_header(table))
     built.append(self.print_rows(table))
     built.append("</table>\n")
