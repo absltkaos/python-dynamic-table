@@ -3,7 +3,7 @@ python-dynamic-table
 
 Python module for creating text table respresentations in various table. Including Text, CSV, and HTML
 
-============
+
 Introduction
 ============
 This module provides a way to build/create, and print tables.  So you can 
@@ -61,7 +61,7 @@ Example of rendering the table to a string:
  my_string=str(my_table)
 ```
 
-=========
+
 Renderers
 =========
 
@@ -141,7 +141,7 @@ Quick examples
   built_table=str(my_table)
 ```
 
-=============
+
 Table Filters
 =============
 Table objects can also be filtered using a set rules. This is done through
