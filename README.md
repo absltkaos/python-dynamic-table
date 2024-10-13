@@ -246,4 +246,6 @@ thing.add_row(['2014-07-30 16:00:00','b','c'],['green'])
 thing.render()
 ```
 
-To see more examples of how all this works out see the file: `dynamic_table_examples.py`
+To see more examples of how all this works out see the file: [`dynamic_table_examples.py`](https://github.com/absltkaos/python-dynamic-table/blob/master/dynamic_table_examples.py) [^1]
+
+[^1]: https://github.com/absltkaos/python-dynamic-table/blob/5c5df6b0c29811d79827ca81663e7dcf11103f93/dynamic_table_examples.py
