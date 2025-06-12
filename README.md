@@ -17,7 +17,7 @@ This module provides a way to build/create, and print tables.  So you can create
 > * Ability to print an html table in html5 supported ways with inline css etc...
 > * In other words... this is heavily a work in progress
 
-The interface to dynamic table is pretty straight forward and all of the parameters passed to the general functions, such as:
+The interface to dynamic table is pretty straight forward. All Table objects have the following functions:
 
 * `add_row`
 * `set_table_type`
@@ -25,7 +25,7 @@ The interface to dynamic table is pretty straight forward and all of the paramet
 * `set_col_names`
 * `set_table_renderer`
 
-If you want to write the table to a file instead of stdout (the default) you have to do so when instantiating the *Table* class. Like so:
+If you want to write the table to a file instead of stdout (the default) you do so when instantiating the *Table* class. Like so:
 
 ```py
 my_file=open('/path/to/file','rw')
@@ -39,10 +39,10 @@ You can also modify this behavior by defining output as 'String' and then the pr
 > [!NOTE]
 > This way of doing this is deprecated in favor of calling str(*Table*). However, it is still useful if building ad-hoc tables, I guess.
 
-For example, with an ad-hoc table:
+Example of deprecated 'String' output, with an ad-hoc table:
 
 ```py
-my_table=*Table*(output='String')
+my_table=Table(output='String')
 my_table.set_col_names(['Col1','Col2'])
 my_table.print_header()
 my_table.print_row(['a','b'])
@@ -51,10 +51,10 @@ table_text=my_table.built_buffer
 my_table.empty_output()
 ```
 
-Example of rendering the table to a string:
+Example of newer method to render to a string:
 
 ```py
-my_table=*Table*()
+my_table=Table()
 my_table.set_col_names(['Col1','Col2'])
 my_table.add_row(['a','b'])
 my_table.add_row(['c','d'])
@@ -90,27 +90,25 @@ Supported parameters for `print_table()` for each renderer and defaults are belo
 `RenderText`
 ------------
 
-<!-- I don't know whether these headings are correct. -->
-
-Miscellaneous                            | Function
------------------------------------------|---------------------------
-`indent=0`                               |
-`borderless=False`                       |
-`color_disabled=False`                   |
-`padding=def_padding`                    | `def_padding=0`
-`padding_char=def_txt_padding_char`      | `def_padding_char=' '`
-`fill_char=def_txt_fill_char`            | `def_fill_char=' '`
-`h_border_char=def_txt_horz_border_char` | `def_horz_border_char='-'`
-`v_border_char=def_txt_vert_border_char` | <code>def_ver_border_char='|'</code>
-`v_border_char=def_txt_vert_border_char` | <code>def_ver_border_char='|'</code>
-`col_sep_char=def_txt_sep_char`          | <code>def_sep_char='|'</code>
+Parameter        | Default | Explanation
+-----------------|---------|------------------
+`indent`         | `0`     | Number of spaces to indent the output
+`borderless`     | `False` | Whether to add a border to the table or not
+`color_disabled` | `False` | When to render colors
+`padding`        | `0`     | Amount of padding to add to values in cells
+`padding_char`   | `" "`   | The character to padd the cells with
+`fill_char`      | `" "`   | Character to use for filling remaing empty space in the cell
+`h_border_char`  | `"-"`   | Horizontal border character
+`v_border_char`  | `"\|"`   | Vertical border character
+`col_sep_char`   | `"\|"`   | Column separator character
 
 
 `RenderCSV`
 -----------
 
-* `sep_char=def_sep_char`
-* `def_sep_char=','`
+Parameter        | Default | Explanation
+-----------------|---------|------------------
+`sep_char`       | `","`     | The character to use for separating cells
 
 `RenderHTML`
 ------------
@@ -138,7 +136,7 @@ Quick examples
 ```py
 from dynamic_table import *
 #Render the table indented 5 spaces, and cells padded 3 chars
-my_table=*Table*(RenderText(indent=5,padding=3))
+my_table=Table(RenderText(indent=5,padding=3))
 my_table.set_col_names(['Col1','Col2'])
 my_table.add_row(['a','b'])
 my_table.add_row(['c','d'])
@@ -209,7 +207,7 @@ Examples of filtering:
 
 ```py
 #Create a table with some data in it:
-thing=dynamic_table.*Table*()
+thing=dynamic_table.Table()
 thing.set_col_names(['Col1','Col2','Col3','Miscellaneous'])
 thing.add_row(['abc','blah','boo','stuff'])
 thing.add_row(['def','blah','boo','stuff'])
@@ -220,9 +218,9 @@ thing.add_row(['20140801 4:00:00','Im colored','right?'],['','red'])
 thing.add_row(['2013-04-21 1:00:00','','Yay Multicolors'],['','','bg_brown,black'])
 thing.add_row(['2014-07-30 12:00:00','a'])
 thing.add_row(['2014-07-30 16:00:00','b','c'],['green'])
-#Create a *Table* Filter to only have column 1 and 3 to the end and where
+#Create a Table Filter to only have column 1 and 3 to the end and where
 # column 1 is after the date/time '2014-07-30 12:00:00'
-tf=dynamic_table.*Table*Filter(filter_txt='1,3-;1>2014-07-30 12:00:00')
+tf=dynamic_table.TableFilter(filter_txt='1,3-;1>2014-07-30 12:00:00')
 #Filter the table and render it
 tf.filter_table(thing).render()
 ```
@@ -230,9 +228,9 @@ tf.filter_table(thing).render()
 ```py
 #Create a filter that only show column 1,3 and 4, and where column 1 is
 # before '2014-07-30 12:00:00'
-tf=dynamic_table.*Table*Filter(filter_txt='1,3,4;1<2014-07-30 12:00:00')
-#Create a *Table* with the filter above that filters as it is being added
-thing=dynamic_table.*Table*(table_filter=tf)
+tf=dynamic_table.TableFilter(filter_txt='1,3,4;1<2014-07-30 12:00:00')
+#Create a Table with the filter above that filters as it is being added
+thing=dynamic_table.Table(table_filter=tf)
 #Add some data and column names:
 thing.set_col_names(['Col1','Col2','Col3','Miscellaneous'])
 thing.add_row(['abc','blah','boo','stuff'])
