@@ -1,7 +1,7 @@
 `python-dynamic-table`
 =====================
 
-Python module for creating text table respresentations in various table. Including Text, CSV, and HTML
+Python module for creating text table respresentations in various formats. Including Text, CSV, and HTML
 
 
 Introduction
